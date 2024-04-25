@@ -1,0 +1,19 @@
+{
+  "name": "coursemanagementservice",
+  "version": "1.0.0",
+  "description": "Course Management Microservice Module For StudyStorm",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SLIITStudyStorm/CourseManagementService.git"
+  },
+  "author": "Sachinthaka Ayeshmantha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SLIITStudyStorm/CourseManagementService/issues"
+  },
+  "homepage": "https://github.com/SLIITStudyStorm/CourseManagementService#readme"
+}
