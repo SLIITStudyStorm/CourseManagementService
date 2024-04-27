@@ -1,15 +1,15 @@
 import { sequelize } from "../config/db.js";
 import { DataTypes } from "sequelize";
 
-const courseContent = sequelize.define(
-    'coursecontents',
+const courseContentDetail = sequelize.define(
+    'coursecontentdetails',
     {
-        content_id: {
+        detail_id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        course_id: {
+        content_id: {
             type: DataTypes.STRING,
             required: true
         },
@@ -25,6 +25,14 @@ const courseContent = sequelize.define(
             type: DataTypes.STRING, 
             required: false
         },
+        attatchment: {
+            type: DataTypes.STRING, 
+            required: false
+        },
+        attatchment_type: {
+            type: DataTypes.STRING, 
+            required: false
+        },
     }, {
         timestamps: true
     }
@@ -34,4 +42,4 @@ const courseContent = sequelize.define(
     await sequelize.sync({ force: true });
 })();
 
-export default courseContent;
+export default courseContentDetail;

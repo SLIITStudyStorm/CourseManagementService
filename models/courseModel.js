@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 const course = sequelize.define(
     'courses',
     {
-        coursecode: {
+        course_id: {
             type: DataTypes.STRING,
             required: true,
             unique: true
@@ -26,7 +26,7 @@ const course = sequelize.define(
             required: true,
             defaultValue: 'Beginner'
         },
-        startdate: {
+        start_date: {
             type: DataTypes.STRING, 
             required: true
         },
@@ -44,7 +44,7 @@ const course = sequelize.define(
 );
 
 (async () => {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
 })();
 
 export default course;
