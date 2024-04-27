@@ -10,8 +10,9 @@ const authLvl1 = asyncHandler(async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.status(401).send({message: error.message});
-    }    
+        res.status(401).json({message: error.message});
+        return
+    }   
 });
 
 // Middle level of authorization - Only Faculty and Admin can access
@@ -23,7 +24,8 @@ const authLvl2 = asyncHandler(async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.status(401).send({message: error.message});
+        res.status(401).json({message: error.message});
+        return
     }  
 });
 
@@ -36,8 +38,9 @@ const authLvl3 = asyncHandler(async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.status(401).send({message: error.message});
-    }  
+        res.status(401).json({message: error.message});
+        return
+    } 
 });
 
 

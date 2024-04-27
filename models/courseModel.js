@@ -1,46 +1,47 @@
 import { sequelize } from "../config/db.js";
 import { DataTypes } from "sequelize";
 
-const course = sequelize.define(
+const Courses = sequelize.define(
     'courses',
     {
         course_id: {
-            type: DataTypes.STRING,
-            required: true,
-            unique: true
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
         },
         name: {
             type: DataTypes.STRING, 
-            required: true
+            allowNull: false
         },
         desc: {
             type: DataTypes.STRING, 
-            required: true
+            allowNull: false
         },
         benefits: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
         level: {
             type: DataTypes.STRING, 
-            required: true,
+            allowNull: false,
             defaultValue: 'Beginner'
         },
         start_date: {
-            type: DataTypes.STRING, 
-            required: true
+            type: DataTypes.DATEONLY, 
+            allowNull: false
         },
         duration: {
-            type: DataTypes.DATE, 
-            required: true
+            type: DataTypes.STRING, 
+            allowNull: false
         },
         price: {
             type: DataTypes.DOUBLE, 
-            required: true
+            allowNull: false,
+            defaultValue: 0.0
         },
     }, {
         timestamps: true
     }
 );
 
-export default course;
+export default Courses;

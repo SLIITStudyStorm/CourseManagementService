@@ -11,27 +11,27 @@ const courseContentDetail = sequelize.define(
         },
         content_id: {
             type: DataTypes.STRING,
-            required: true
+            allowNull: false
         },
         title: {
             type: DataTypes.STRING, 
-            required: true
+            allowNull: false
         },
         subtitle: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
         desc: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
         attatchment: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
         attatchment_type: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
     }, {
         timestamps: true

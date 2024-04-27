@@ -11,19 +11,19 @@ const courseContent = sequelize.define(
         },
         course_id: {
             type: DataTypes.STRING,
-            required: true
+            allowNull: false
         },
         title: {
             type: DataTypes.STRING, 
-            required: true
+            allowNull: false
         },
         subtitle: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
         desc: {
             type: DataTypes.STRING, 
-            required: false
+            allowNull: true
         },
     }, {
         timestamps: true
