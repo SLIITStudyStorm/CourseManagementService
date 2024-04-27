@@ -1,6 +1,7 @@
 import express from 'express';
 // import {  } from '../controllers/courseController.js';
 import courseContent from '../models/courseContentModel.js';
+import courseContentDetail from '../models/courseContentDetailModel.js';
 import course from '../models/courseModel.js';
 import {  authLvl1 } from '../middleware/authMiddleware.js';
 

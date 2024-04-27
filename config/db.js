@@ -18,4 +18,9 @@ const connectDB = async () => {
     }
 }
 
+
+(async () => {
+    await sequelize.sync({ force: true });
+})();
+
 export { connectDB, sequelize };

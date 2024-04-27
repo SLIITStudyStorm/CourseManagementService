@@ -30,8 +30,4 @@ const courseContent = sequelize.define(
     }
 );
 
-(async () => {
-    await sequelize.sync({ force: true });
-})();
-
 export default courseContent;
