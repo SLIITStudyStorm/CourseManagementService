@@ -6,6 +6,7 @@ import cors from 'cors';
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import { connectDB } from "./config/db.js";
 
+import CourseRoutes from "./routes/courseRoutes.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 //Routes
+app.use('/api/course', CourseRoutes);
 
 app.get('/', (req, res) => res.send('Course Management Service is running'));
 
