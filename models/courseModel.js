@@ -17,21 +17,35 @@ const Courses = sequelize.define(
             type: DataTypes.STRING, 
             allowNull: false
         },
-        benefits: {
+        subject: { // subject of the course Ex: Math, Science, etc.
             type: DataTypes.STRING, 
-            allowNull: true
+            allowNull: false
+        },
+        language: {
+            type: DataTypes.STRING, 
+            allowNull: false,
+            defaultValue: 'English'
+        },
+        type: {
+            type: DataTypes.STRING, 
+            allowNull: false,
+            defaultValue: 'Course'
         },
         level: {
             type: DataTypes.STRING, 
             allowNull: false,
             defaultValue: 'Beginner'
         },
-        start_date: {
-            type: DataTypes.DATEONLY, 
-            allowNull: false
-        },
         duration: {
             type: DataTypes.STRING, 
+            allowNull: false
+        },
+        skills: {
+            type: DataTypes.STRING, 
+            allowNull: true
+        },
+        start_date: {
+            type: DataTypes.DATEONLY, 
             allowNull: false
         },
         price: {
@@ -39,6 +53,20 @@ const Courses = sequelize.define(
             allowNull: false,
             defaultValue: 0.0
         },
+        thumbnail: {
+            type: DataTypes.STRING, 
+            allowNull: true
+        },
+        published: {
+            type: DataTypes.BOOLEAN, 
+            allowNull: false,
+            defaultValue: true
+        },
+        studentCount: {
+            type: DataTypes.INTEGER, 
+            allowNull: false,
+            defaultValue: 0
+        }
     }, {
         timestamps: true
     }

@@ -1,6 +1,7 @@
 import { sequelize } from "../config/db.js";
 import { DataTypes } from "sequelize";
 
+// Course Modules/topics
 const courseContent = sequelize.define(
     'coursecontents',
     {

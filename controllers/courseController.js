@@ -10,13 +10,18 @@ const createCourse = asyncHandler(async (req, res) => {
     try {
 
         const {
-            name, 
-            desc, 
-            benefits, 
+            name,
+            desc,
+            subject,
+            language,
+            type,
             level,
-            start_date,
             duration,
-            price
+            skills,
+            start_date,
+            price,
+            thumbnail,
+            published
         } = req.body;
 
         if(!name){
@@ -24,6 +29,9 @@ const createCourse = asyncHandler(async (req, res) => {
             return
         } else if(!desc){
             res.status(400).json({ message: 'Course Description is required' });
+            return
+        } else if(!subject){
+            res.status(400).json({ message: 'Course Subject is required' });
             return
         } else if(!start_date){
             res.status(400).json({ message: 'Course Start Date is required' });
@@ -43,11 +51,16 @@ const createCourse = asyncHandler(async (req, res) => {
         course = await Courses.create({
             name,
             desc,
-            benefits,
+            subject,
+            language,
+            type,
             level,
-            start_date,
             duration,
-            price           
+            skills,
+            start_date,
+            price,
+            thumbnail,
+            published
         });
     
         if(course){
@@ -132,13 +145,18 @@ const updateCourse = asyncHandler(async (req, res) => {
 
         const {
             course_id,
-            name, 
-            desc, 
-            benefits, 
+            name,
+            desc,
+            subject,
+            language,
+            type,
             level,
-            start_date,
             duration,
-            price
+            skills,
+            start_date,
+            price,
+            thumbnail,
+            published
         } = req.body;
     
         let course = await Courses.findByPk(course_id)
@@ -152,11 +170,16 @@ const updateCourse = asyncHandler(async (req, res) => {
             { 
                 name: name || course.name, 
                 desc: desc || course.desc, 
-                benefits: benefits || course.benefits, 
+                subject: subject || course.subject, 
+                language: language || course.language, 
+                type: type || course.type, 
+                skills: skills || course.skills, 
                 level: level || course.level,
                 start_date: start_date || course.start_date,
                 duration: duration || course.duration,
-                price: price || course.price
+                price: price || course.price,
+                thumbnail: thumbnail || course.thumbnail,
+                published: published || course.published
             },
             {
               where: {
