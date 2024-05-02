@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import fs from 'fs';
 import Courses from '../models/courseModel.js';
 
 
@@ -6,7 +7,6 @@ import Courses from '../models/courseModel.js';
 // route    POST /api/course/create
 // @access  Private - Auth Lvl 3
 const createCourse = asyncHandler(async (req, res) => {
-
     try {
 
         const {
@@ -20,10 +20,11 @@ const createCourse = asyncHandler(async (req, res) => {
             skills,
             start_date,
             price,
-            thumbnail,
             published
         } = req.body;
 
+        const thumbnail = req.file.path;
+        
         if(!name){
             res.status(400).json({ message: 'Course Name is required' });
             return
@@ -44,6 +45,9 @@ const createCourse = asyncHandler(async (req, res) => {
         var course = await Courses.findOne({ where: { name } });
 
         if(course){
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
             res.status(400).json({ message: 'Course Already Exists' });
             return
         }
@@ -67,11 +71,17 @@ const createCourse = asyncHandler(async (req, res) => {
             res.status(201).json({ message: 'Course Created Successfully', data: course });
             return
         }else{
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
             res.status(400).json({ message: 'Course Creation Unsuccessful' });
             return
         }
 
     } catch (error) {
+        if (req.file) {
+            fs.unlinkSync(req.file.path);
+        }
         res.status(500).json({ message: error.message })
         return
     }
