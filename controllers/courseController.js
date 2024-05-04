@@ -26,20 +26,20 @@ const createCourse = asyncHandler(async (req, res) => {
         const thumbnail = req.file.path;
         
         if(!name){
-            res.status(400).json({ message: 'Course Name is required' });
-            return
+            return res.status(400).json({ message: 'Course Name is required' });
+            
         } else if(!desc){
-            res.status(400).json({ message: 'Course Description is required' });
-            return
+            return res.status(400).json({ message: 'Course Description is required' });
+            
         } else if(!subject){
-            res.status(400).json({ message: 'Course Subject is required' });
-            return
+            return res.status(400).json({ message: 'Course Subject is required' });
+            
         } else if(!start_date){
-            res.status(400).json({ message: 'Course Start Date is required' });
-            return
+            return res.status(400).json({ message: 'Course Start Date is required' });
+            
         } else if(!duration){
-            res.status(400).json({ message: 'Course Duration is required' });
-            return
+            return res.status(400).json({ message: 'Course Duration is required' });
+            
         }
 
         var course = await Courses.findOne({ where: { name } });
@@ -48,8 +48,8 @@ const createCourse = asyncHandler(async (req, res) => {
             if (req.file) {
                 fs.unlinkSync(req.file.path);
             }
-            res.status(400).json({ message: 'Course Already Exists' });
-            return
+            return res.status(400).json({ message: 'Course Already Exists' });
+            
         }
     
         course = await Courses.create({
@@ -68,22 +68,22 @@ const createCourse = asyncHandler(async (req, res) => {
         });
     
         if(course){
-            res.status(201).json({ message: 'Course Created Successfully', data: course });
-            return
+            return res.status(201).json({ message: 'Course Created Successfully', payload: course });
+            
         }else{
             if (req.file) {
                 fs.unlinkSync(req.file.path);
             }
-            res.status(400).json({ message: 'Course Creation Unsuccessful' });
-            return
+            return res.status(400).json({ message: 'Course Creation Unsuccessful' });
+            
         }
 
     } catch (error) {
         if (req.file) {
             fs.unlinkSync(req.file.path);
         }
-        res.status(500).json({ message: error.message })
-        return
+        return res.status(500).json({ message: error.message })
+        
     }
 
 });
@@ -102,15 +102,15 @@ const getCourseList = asyncHandler(async (req, res) => {
         let courses = await Courses.findAndCountAll({offset: page, limit: rows,})
 
         if(courses.count <= 0){
-            res.status(404).json({ message: 'No Courses Available!' });
-            return
+            return res.status(404).json({ message: 'No Courses Available!' });
+            
         }
         
-        res.status(200).json({ message: 'Courses Retreived Successfully', data: courses });
+        return res.status(200).json({ message: 'Courses Retreived Successfully', payload: courses });
 
     } catch (error) {
 
-        res.status(500).json({ message: error.message })
+        return res.status(500).json({ message: error.message })
 
     }
 
@@ -126,20 +126,25 @@ const getCourseById = asyncHandler(async (req, res) => {
 
         const id = parseInt(req.params.id);
 
+        if(isNaN(id)){
+            return res.status(400).json({ message: 'Invalid Course Id!' });
+             
+        }
+
         let course = await Courses.findByPk(id)
 
         if(!course){
-            res.status(404).json({ message: 'Course Not Found!' });
-            return
+            return res.status(404).json({ message: 'Course Not Found!' });
         }
-        
-        res.status(200).json({ message: 'Courses Retreived Successfully', data: courses });
-        return
+
+        course.skills = course.skills.split(',');
+
+        return res.status(200).json({ message: 'Courses Retreived Successfully', payload: course });
 
     } catch (error) {
 
-        res.status(500).json({ message: error.message })
-        return
+        return res.status(500).json({ message: error.message })
+        
 
     }
 
@@ -172,8 +177,8 @@ const updateCourse = asyncHandler(async (req, res) => {
         let course = await Courses.findByPk(course_id)
     
         if (!course) {
-            res.status(404).json({ message: 'Course Not Found!' })
-            return;
+            return res.status(404).json({ message: 'Course Not Found!' })
+            
         }
     
         course = await Courses.update(
@@ -198,13 +203,13 @@ const updateCourse = asyncHandler(async (req, res) => {
             },
         );
     
-        res.status(200).json({ message: 'Course Updated Successfully' });
-        return
+        return res.status(200).json({ message: 'Course Updated Successfully' });
+        
 
     } catch (error) {
 
-        res.status(500).json({ message: error.message })
-        return
+        return res.status(500).json({ message: error.message })
+        
 
     }
 });
@@ -226,17 +231,17 @@ const deleteCourse = asyncHandler(async (req, res) => {
         });
 
         if(!course){
-            res.status(404).json({ message: "Course Not Found!" })
-            return
+            return res.status(404).json({ message: "Course Not Found!" })
+            
         }
         
-        res.status(200).json({ message: 'Course Deleted Successfully' });
-        return
+        return res.status(200).json({ message: 'Course Deleted Successfully' });
+        
 
     } catch (error) {
 
-        res.status(500).json({ message: error.message })
-        return
+        return res.status(500).json({ message: error.message })
+        
 
     }
 });

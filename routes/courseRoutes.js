@@ -8,7 +8,7 @@ const router = express.Router();
 // Course Routes
 router.post('/create', uploadThumbnail.single('thumbnail'), createCourse)
 router.get('/all', getCourseList)
-router.get('/:id', getCourseById)
+router.get('/one/:id', getCourseById)
 router.put('/update', authLvl3, updateCourse)
 router.delete('/delete/:id', authLvl3, deleteCourse)
 
