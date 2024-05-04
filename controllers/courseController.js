@@ -23,23 +23,25 @@ const createCourse = asyncHandler(async (req, res) => {
             published
         } = req.body;
 
-        const thumbnail = req.file.path;
+        const thumbnail = req.file?.path;
         
-        if(!name){
-            return res.status(400).json({ message: 'Course Name is required' });
-            
-        } else if(!desc){
-            return res.status(400).json({ message: 'Course Description is required' });
-            
-        } else if(!subject){
-            return res.status(400).json({ message: 'Course Subject is required' });
-            
-        } else if(!start_date){
-            return res.status(400).json({ message: 'Course Start Date is required' });
-            
-        } else if(!duration){
-            return res.status(400).json({ message: 'Course Duration is required' });
-            
+        try {
+            if(!name){
+                throw new Error('Course Name is required');                
+            } else if(!desc){
+                throw new Error('Course Description is required');                
+            } else if(!subject){
+                throw new Error('Course Subject is required');                
+            } else if(!start_date){
+                throw new Error('Course Start Date is required');                
+            } else if(!duration){
+                throw new Error('Course Duration is required');                
+            }
+        } catch (error) {
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
+            return res.status(400).json({ message: error.message });
         }
 
         var course = await Courses.findOne({ where: { name } });
@@ -75,7 +77,6 @@ const createCourse = asyncHandler(async (req, res) => {
                 fs.unlinkSync(req.file.path);
             }
             return res.status(400).json({ message: 'Course Creation Unsuccessful' });
-            
         }
 
     } catch (error) {
@@ -83,7 +84,6 @@ const createCourse = asyncHandler(async (req, res) => {
             fs.unlinkSync(req.file.path);
         }
         return res.status(500).json({ message: error.message })
-        
     }
 
 });
@@ -170,16 +170,21 @@ const updateCourse = asyncHandler(async (req, res) => {
             skills,
             start_date,
             price,
-            thumbnail,
             published
         } = req.body;
+
+        const thumbnail = req.file?.path;
     
         let course = await Courses.findByPk(course_id)
     
         if (!course) {
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
             return res.status(404).json({ message: 'Course Not Found!' })
-            
         }
+
+        let oldThumbnail = course.thumbnail;
     
         course = await Courses.update(
             { 
@@ -188,12 +193,12 @@ const updateCourse = asyncHandler(async (req, res) => {
                 subject: subject || course.subject, 
                 language: language || course.language, 
                 type: type || course.type, 
-                skills: skills || course.skills, 
+                skills: skills || null, 
                 level: level || course.level,
                 start_date: start_date || course.start_date,
                 duration: duration || course.duration,
                 price: price || course.price,
-                thumbnail: thumbnail || course.thumbnail,
+                thumbnail: thumbnail || null,
                 published: published || course.published
             },
             {
@@ -203,14 +208,16 @@ const updateCourse = asyncHandler(async (req, res) => {
             },
         );
     
+        if (oldThumbnail) {
+            fs.unlinkSync(oldThumbnail);
+        }
         return res.status(200).json({ message: 'Course Updated Successfully' });
-        
 
     } catch (error) {
-
+        if (req.file) {
+            fs.unlinkSync(req.file.path);
+        }
         return res.status(500).json({ message: error.message })
-        
-
     }
 });
 
