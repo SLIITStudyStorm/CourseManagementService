@@ -6,10 +6,10 @@ import { uploadThumbnail } from '../middleware/multer.js';
 const router = express.Router();
 
 // Course Routes
-router.post('/create', uploadThumbnail.single('thumbnail'), createCourse)//('/create', authLvl3, uploadThumbnail.single('thumbnail'), createCourse)
+router.post('/create', authLvl3, uploadThumbnail.single('thumbnail'), createCourse)
 router.get('/all', getCourseList)
 router.get('/one/:id', getCourseById)
-router.put('/update', uploadThumbnail.single('thumbnail'), updateCourse)//('/update', authLvl3, updateCourse)
+router.put('/update', authLvl3, updateCourse)
 router.delete('/delete/:id', authLvl3, deleteCourse)
 
 export default router;
