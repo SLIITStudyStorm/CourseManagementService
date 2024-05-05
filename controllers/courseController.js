@@ -231,17 +231,23 @@ const deleteCourse = asyncHandler(async (req, res) => {
 
         const id = parseInt(req.params.id);
 
-        let course = await Courses.destroy({
+        let course = await Courses.findByPk(id);
+        if(!course){
+            return res.status(404).json({ message: "Course Not Found!" })
+        }
+
+        let thumbnail = course.thumbnail
+
+        course = await Courses.destroy({
             where: {
                 course_id: id,
             },
         });
 
-        if(!course){
-            return res.status(404).json({ message: "Course Not Found!" })
-            
-        }
         
+        if(thumbnail){
+            fs.unlinkSync(thumbnail);
+        }
         return res.status(200).json({ message: 'Course Deleted Successfully' });
         
 
