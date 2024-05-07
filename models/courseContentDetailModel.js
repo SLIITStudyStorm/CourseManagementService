@@ -34,6 +34,11 @@ const courseContentDetail = sequelize.define(
             type: DataTypes.STRING, 
             allowNull: true
         },
+        status: {
+            type: DataTypes.BOOLEAN, 
+            allowNull: true,
+            defaultValue: null
+        },
     }, {
         timestamps: true
     }

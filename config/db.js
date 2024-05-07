@@ -20,7 +20,7 @@ const connectDB = async () => {
 
 
 (async () => {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
 })();
 
 export { connectDB, sequelize };

@@ -118,7 +118,7 @@ const getCourseList = asyncHandler(async (req, res) => {
 
 
 // @desc    Retrieve Courses By Id
-// route    GET /api/course/:id
+// route    GET /api/course/pne/:id
 // @access  Public
 const getCourseById = asyncHandler(async (req, res) => {
     
@@ -139,7 +139,7 @@ const getCourseById = asyncHandler(async (req, res) => {
 
         course.skills = course.skills.split(',');
 
-        return res.status(200).json({ message: 'Courses Retreived Successfully', payload: course });
+        return res.status(200).json({ message: 'Course Retreived Successfully', payload: course });
 
     } catch (error) {
 

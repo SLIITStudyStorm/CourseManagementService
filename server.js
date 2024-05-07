@@ -9,6 +9,7 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import { connectDB } from "./config/db.js";
 
 import CourseRoutes from "./routes/courseRoutes.js";
+import CourseContentRoutes from "./routes/courseContentRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 //Routes
+app.use('/api/course/content', CourseContentRoutes);
 app.use('/api/course', CourseRoutes);
 
 app.use('/uploads', express.static(join(__dirname, 'uploads')));
