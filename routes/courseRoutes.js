@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/create', authLvl3, uploadThumbnail.single('thumbnail'), createCourse)
 router.get('/all', getCourseList)
 router.get('/one/:id', getCourseById)
-router.put('/update', authLvl3, updateCourse)
+router.put('/update', authLvl3, uploadThumbnail.single('thumbnail'), updateCourse)
 router.delete('/delete/:id', authLvl3, deleteCourse)
 
 export default router;
