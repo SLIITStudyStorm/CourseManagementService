@@ -58,7 +58,7 @@ const validateToken = (token, roles) => {
 
         } catch (error) {
             console.log(error);
-            throw new Error(error.message);
+            throw new Error(error.message + ". Please login again");
         }
     }else{
         throw new Error('Not Authorized, no token');

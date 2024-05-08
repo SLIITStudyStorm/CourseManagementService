@@ -222,6 +222,44 @@ const updateCourse = asyncHandler(async (req, res) => {
 });
 
 
+// @desc    Publish Course
+// route    PATCH /api/course/publish/:id
+// @access  Private - Auth Lvl 2
+const publishCourse = asyncHandler(async (req, res) => {
+
+    try {
+
+        const id = parseInt(req.params.id);
+
+        if(isNaN(id)){
+            return res.status(400).json({ message: 'Invalid Course Id!' });    
+        }
+    
+        let course = await Courses.findByPk(id)
+    
+        if (!course) {
+            return res.status(404).json({ message: 'Course Not Found!' })
+        }
+    
+        course = await Courses.update(
+            { 
+                published: !course.published
+            },
+            {
+              where: {
+                course_id: id,
+              },
+            },
+        );
+        
+        return res.status(200).json({ message: 'Course Published Successfully' });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+});
+
+
 // @desc    Delete Course 
 // route    DELETE /api/course/delete/:id
 // @access  Private - Auth Lvl 3
@@ -267,5 +305,6 @@ export {
     getCourseList,
     getCourseById,
     updateCourse,
+    publishCourse,
     deleteCourse
 };
