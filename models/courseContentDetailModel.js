@@ -18,10 +18,6 @@ const courseContentDetail = sequelize.define(
             type: DataTypes.STRING, 
             allowNull: false
         },
-        subtitle: {
-            type: DataTypes.STRING, 
-            allowNull: true
-        },
         desc: {
             type: DataTypes.STRING, 
             allowNull: true
