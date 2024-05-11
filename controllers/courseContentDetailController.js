@@ -129,24 +129,24 @@ const deleteCourseContentDetail = asyncHandler(async (req, res) => {
 
         const id = parseInt(req.params.id);
 
-        let course = await Courses.findByPk(id);
-        if(!course){
-            return res.status(404).json({ message: "Course Not Found!" })
+        let courseContentDetail = await CourseContentDetail.findByPk(id);
+        if(!courseContentDetail){
+            return res.status(404).json({ message: "Course Content Not Found!" })
         }
 
-        let thumbnail = course.thumbnail
+        let attatchment = courseContentDetail.attatchment
 
-        course = await Courses.destroy({
+        courseContentDetail = await Courses.destroy({
             where: {
-                course_id: id,
+                detail_id: id,
             },
         });
 
         
-        if(thumbnail){
-            fs.unlinkSync(thumbnail);
+        if(attatchment){
+            fs.unlinkSync(attatchment);
         }
-        return res.status(200).json({ message: 'Course Deleted Successfully' });
+        return res.status(200).json({ message: 'Course Content Deleted Successfully' });
         
 
     } catch (error) {
