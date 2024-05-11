@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler';
 // Lowest level of authorization - Anyone who has logged in can access
 const authLvl1 = asyncHandler(async (req, res, next) => {
     let token = req.headers.authorization?.split(' ')[1];
-    let roles = ["ROLE_USER","ROLE_INSTRUCTOR","ROLE_ADMIN"]
+    let roles = ["ROLE_LEARNER","ROLE_INSTRUCTOR","ROLE_ADMIN"]
     try {
         let email = validateToken(token, roles);
         req.email = email
