@@ -1,0 +1,21 @@
+﻿cSTNNo,cCompanyCode,dtpDate,cLocationFrom,cLocationTo,cRequestNo,nTotal,nTotalCost,bDelete,bExport,vcCreateID,dtpCreateDate,vcModifyID,dtpModifyDate,vcDeleteID,dtpDeleteDate,vcAcceptID,dtpAcceptDate,vcRemarks
+2,1,49:59.0,RJGR      ,MAIN      ,          ,35084,17800,0,0,susantha,49:59.0,,00:00.0,,00:00.0,          ,00:00.0,
+ST00000001,1,52:25.0,MAIN      ,WHSE      ,          ,285000,162500,0,0,Deepal,52:25.0,,00:00.0,,00:00.0,Deepal    ,52:25.0,NULL
+ST00000002,1,15:48.0,WHSE      ,MAIN      ,          ,285000,162500,0,0,Asanka,15:48.0,,00:00.0,,00:00.0,Asanka    ,15:48.0,NULL
+ST00000003,1,25:49.0,MAIN      ,RJGR      ,          ,86000,50800,0,0,Deepal,25:49.0,,00:00.0,,00:00.0,Deepal    ,25:49.0,NULL
+ST00000004,1,46:21.0,MAIN      ,RJGR      ,          ,673721,339900,0,0,Asanka,46:21.0,,00:00.0,,00:00.0,Asanka    ,46:21.0,NULL
+ST00000005,1,47:25.0,MAIN      ,RJGR      ,          ,260000,95310,0,0,Asanka,47:25.0,,00:00.0,,00:00.0,Asanka    ,47:25.0,NULL
+ST00000006,1,30:37.0,MAIN      ,RJGR      ,          ,73913,33500,0,0,Asanka,30:37.0,,00:00.0,,00:00.0,Asanka    ,30:37.0,NULL
+ST00000007,1,20:06.0,MAIN      ,RJGR      ,          ,72000,69500,0,0,Deepal,20:06.0,,00:00.0,,00:00.0,Deepal    ,20:06.0,NULL
+ST00000008,1,21:13.0,MAIN      ,RJGR      ,          ,392052,196240,0,0,Asanka,21:13.0,,00:00.0,,00:00.0,Asanka    ,21:13.0,NULL
+ST00000009,1,07:23.0,MAIN      ,RJGR      ,          ,610000,426981.12,0,0,Deepal,07:23.0,,00:00.0,,00:00.0,Deepal    ,07:23.0,NULL
+ST00000010,1,37:15.0,RJGR      ,MAIN      ,          ,10000,4600,0,0,Asanka,37:15.0,,00:00.0,,00:00.0,Asanka    ,37:15.0,NULL
+ST00000011,1,54:08.0,MAIN      ,RJGR      ,          ,189000,113250,0,0,Deepal,54:08.0,,00:00.0,,00:00.0,Deepal    ,54:08.0,NULL
+ST00000012,1,56:30.0,MAIN      ,RJGR      ,          ,154000,101635.87,0,0,Deepal,56:30.0,,00:00.0,,00:00.0,Deepal    ,56:30.0,NULL
+ST00000013,1,57:11.0,MAIN      ,RJGR      ,          ,1228677,630414.26,0,0,susantha,57:11.0,,00:00.0,,00:00.0,susantha  ,57:11.0,NULL
+ST00000014,1,35:26.0,MAIN      ,RJGR      ,          ,289530,170525,0,0,susantha,35:26.0,,00:00.0,,00:00.0,susantha  ,35:26.0,NULL
+ST00000015,1,58:09.0,MAIN      ,RJGR      ,          ,213739,152500,0,0,susantha,58:09.0,,00:00.0,,00:00.0,susantha  ,58:09.0,NULL
+ST00000016,1,53:27.0,MAIN      ,RJGR      ,          ,15652,9000,0,0,ad,53:27.0,,00:00.0,,00:00.0,ad        ,53:27.0,NULL
+ST00000017,1,03:42.0,MAIN      ,RJGR      ,          ,26000,8200,0,0,udari,03:42.0,,00:00.0,,00:00.0,udari     ,03:42.0,NULL
+ST00000018,1,43:25.0,MAIN      ,RJGR      ,          ,487695,215888.59,0,0,udari,43:25.0,,00:00.0,,00:00.0,udari     ,43:25.0,NULL
+ST00000019,1,54:48.0,MAIN      ,RJGR      ,          ,121739,57783.46,0,0,udari,54:48.0,,00:00.0,,00:00.0,udari     ,54:48.0,NULL
