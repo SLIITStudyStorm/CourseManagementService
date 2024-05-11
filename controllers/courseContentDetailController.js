@@ -131,10 +131,11 @@ const deleteCourseContentDetail = asyncHandler(async (req, res) => {
 
         let courseContentDetail = await CourseContentDetail.findByPk(id);
         if(!courseContentDetail){
-            return res.status(404).json({ message: "Course Content Not Found!" })
+            return res.status(404).json({ message: "File / Content Not Found!" })
         }
 
         let attatchment = courseContentDetail.attatchment
+        let attatchmentType = courseContentDetail.attatchment_type
 
         courseContentDetail = await Courses.destroy({
             where: {
@@ -143,7 +144,7 @@ const deleteCourseContentDetail = asyncHandler(async (req, res) => {
         });
 
         
-        if(attatchment){
+        if(attatchment && attatchmentType != 'link'){
             fs.unlinkSync(attatchment);
         }
         return res.status(200).json({ message: 'Course Content Deleted Successfully' });
