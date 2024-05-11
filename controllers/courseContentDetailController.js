@@ -18,7 +18,10 @@ const createCourseContentDetail = asyncHandler(async (req, res) => {
             attatchment_type
         } = req.body;
 
-        // const thumbnail = req.file?.path;
+        const attatchment = req.file?.path;
+
+        console.log(req.body);
+        console.log(attatchment);
         
         try {
             if(!content_id){
@@ -31,45 +34,38 @@ const createCourseContentDetail = asyncHandler(async (req, res) => {
                 throw new Error('Course Content Attatchment Type is required');                
             }
         } catch (error) {
-            // if (req.file) {
-            //     fs.unlinkSync(req.file.path);
-            // }
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
             return res.status(400).json({ message: error.message });
         }
 
         var courseContent = await CourseContent.findByPk(content_id);
 
-        if(courseContent){
+        if(!courseContent){
             if (req.file) {
                 fs.unlinkSync(req.file.path);
             }
-            return res.status(400).json({ message: 'Course Already Exists' });
+            return res.status(400).json({ message: 'Course Content Category Not Found' });
             
         }
     
-        course = await Courses.create({
-            name,
+        let courseContentDetail = await CourseContentDetail.create({
+            content_id,
+            title,
             desc,
-            subject,
-            language,
-            type,
-            level,
-            duration,
-            skills,
-            start_date,
-            price,
-            thumbnail,
-            published
+            attatchment_type,
+            attatchment
         });
     
-        if(course){
-            return res.status(201).json({ message: 'Course Created Successfully', payload: course });
+        if(courseContentDetail){
+            return res.status(201).json({ message: 'Course Content Added Successfully', payload: courseContentDetail });
             
         }else{
             if (req.file) {
                 fs.unlinkSync(req.file.path);
             }
-            return res.status(400).json({ message: 'Course Creation Unsuccessful' });
+            return res.status(400).json({ message: 'Failed to Add Course Content' });
         }
 
     } catch (error) {
@@ -294,7 +290,7 @@ const deleteCourse = asyncHandler(async (req, res) => {
 
 
 export { 
-    createCourse,
+    createCourseContentDetail,
     getCourseList,
     getCourseById,
     updateCourse,

@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import fs from 'fs';
 import Courses from '../models/courseModel.js';
 import { literal, where } from 'sequelize';
+import sendMail from '../utils/sendMail.js';
 
 
 // @desc    Register a new Course
@@ -282,7 +283,8 @@ const approveCourse = asyncHandler(async (req, res) => {
         if (!course) {
             return res.status(404).json({ message: 'Course Not Found!' })
         }
-    
+        let courseDetails = course;
+
         course = await Courses.update(
             { 
                 approved: approve
@@ -293,6 +295,20 @@ const approveCourse = asyncHandler(async (req, res) => {
               },
             },
         );
+
+        let errMail = `Dear Instructor,<br />The Course You created titled ${courseDetails.name} has been rejected! Please re-check and verify the content and re submit for approval.`
+        let succMail = `Dear Instructor,<br />The Course You created titled ${courseDetails.name} has been approved!`
+
+        let mailData = {
+            "notifications": [
+                {
+                    "email": courseDetails.created_by,
+                    "message": approve ? succMail : errMail
+                },
+            ]
+        }
+        sendMail(mailData)
+        
         
         return res.status(200).json({ message: `Course ${approve ? 'Rejected' : 'Approved'} Successfully` });
 

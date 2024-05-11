@@ -23,8 +23,8 @@ const courseContent = sequelize.define(
             allowNull: true
         },
         desc: {
-            type: DataTypes.STRING, 
-            allowNull: true
+            type: DataTypes.TEXT, 
+            allowNull: true,
         },
     }, {
         timestamps: true

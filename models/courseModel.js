@@ -14,7 +14,7 @@ const Courses = sequelize.define(
             allowNull: false
         },
         desc: {
-            type: DataTypes.STRING, 
+            type: DataTypes.TEXT, 
             allowNull: false
         },
         subject: { // subject of the course Ex: Math, Science, etc.
