@@ -4,9 +4,10 @@ import asyncHandler from 'express-async-handler';
 // Lowest level of authorization - Anyone who has logged in can access
 const authLvl1 = asyncHandler(async (req, res, next) => {
     let token = req.headers.authorization?.split(' ')[1];
-    let roles = ["ROLE_USER","ROLE_FACULTY","ROLE_ADMIN"]
+    let roles = ["ROLE_USER","ROLE_INSTRUCTOR","ROLE_ADMIN"]
     try {
-        validateToken(token, roles);
+        let email = validateToken(token, roles);
+        req.email = email
 
         next();
     } catch (error) {
@@ -18,9 +19,10 @@ const authLvl1 = asyncHandler(async (req, res, next) => {
 // Middle level of authorization - Only Faculty and Admin can access
 const authLvl2 = asyncHandler(async (req, res, next) => {
     let token = req.headers.authorization?.split(' ')[1];
-    let roles = ["ROLE_FACULTY","ROLE_ADMIN"]
+    let roles = ["ROLE_INSTRUCTOR","ROLE_ADMIN"]
     try {
-        validateToken(token, roles);
+        let email = validateToken(token, roles);
+        req.email = email
 
         next();
     } catch (error) {
@@ -34,7 +36,8 @@ const authLvl3 = asyncHandler(async (req, res, next) => {
     let token = req.headers.authorization?.split(' ')[1];
     let roles = ["ROLE_ADMIN"]
     try {
-        validateToken(token, roles);
+        let email = validateToken(token, roles);
+        req.email = email
 
         next();
     } catch (error) {
@@ -55,6 +58,8 @@ const validateToken = (token, roles) => {
             if(!userRoles.some(r => roles.includes(r))){
                 throw new Error('Not Authorized, insufficient access level');
             }
+
+            return decoded.sub;
 
         } catch (error) {
             console.log(error);

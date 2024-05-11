@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import fs from 'fs';
 import Courses from '../models/courseModel.js';
+import { literal, where } from 'sequelize';
 
 
 // @desc    Register a new Course
@@ -20,7 +21,6 @@ const createCourse = asyncHandler(async (req, res) => {
             skills,
             start_date,
             price,
-            published
         } = req.body;
 
         const thumbnail = req.file?.path;
@@ -66,7 +66,8 @@ const createCourse = asyncHandler(async (req, res) => {
             start_date,
             price,
             thumbnail,
-            published
+            approved: null,
+            created_by: req.email
         });
     
         if(course){
@@ -98,8 +99,48 @@ const getCourseList = asyncHandler(async (req, res) => {
 
         const page = parseInt(req.query.page)-1;
         const rows = parseInt(req.query.rows);
+        let approved = req.query.approved || 1
 
-        let courses = await Courses.findAndCountAll({offset: page, limit: rows,})
+        if( approved == 'null'){
+            approved = null
+        }
+
+        let courses = await Courses.findAndCountAll({ where:{approved}, offset: page, limit: rows})
+
+        if(courses.count <= 0){
+            return res.status(404).json({ message: 'No Courses Available!' });
+            
+        }
+        
+        return res.status(200).json({ message: 'Courses Retreived Successfully', payload: courses });
+
+    } catch (error) {
+
+        return res.status(500).json({ message: error.message })
+
+    }
+
+});
+
+
+// @desc    Retrieve All Courses
+// route    GET /api/course/instructor/all
+// @access  Public
+const getCourseListByInstructor = asyncHandler(async (req, res) => {
+    
+    try {
+
+        const page = parseInt(req.query.page)-1;
+        const rows = parseInt(req.query.rows);
+        let approved = req.query.approved || true
+        const email = req.email
+
+        if( approved == 'null'){
+            approved = null
+        }
+
+
+        let courses = await Courses.findAndCountAll({ where:{approved, created_by:email}, offset: page, limit: rows})
 
         if(courses.count <= 0){
             return res.status(404).json({ message: 'No Courses Available!' });
@@ -170,7 +211,6 @@ const updateCourse = asyncHandler(async (req, res) => {
             skills,
             start_date,
             price,
-            published
         } = req.body;
 
         const thumbnail = req.file?.path;
@@ -199,7 +239,7 @@ const updateCourse = asyncHandler(async (req, res) => {
                 duration: duration || course.duration,
                 price: price || course.price,
                 thumbnail: thumbnail || null,
-                published: published || course.published
+                approved: null
             },
             {
               where: {
@@ -222,14 +262,16 @@ const updateCourse = asyncHandler(async (req, res) => {
 });
 
 
-// @desc    Publish Course
+// @desc    Approve Course
 // route    PATCH /api/course/publish/:id
 // @access  Private - Auth Lvl 2
-const publishCourse = asyncHandler(async (req, res) => {
+const approveCourse = asyncHandler(async (req, res) => {
 
     try {
 
         const id = parseInt(req.params.id);
+        const approve = req.params.approve;
+        console.log(approve);
 
         if(isNaN(id)){
             return res.status(400).json({ message: 'Invalid Course Id!' });    
@@ -243,7 +285,7 @@ const publishCourse = asyncHandler(async (req, res) => {
     
         course = await Courses.update(
             { 
-                published: !course.published
+                approved: approve
             },
             {
               where: {
@@ -252,7 +294,7 @@ const publishCourse = asyncHandler(async (req, res) => {
             },
         );
         
-        return res.status(200).json({ message: 'Course Published Successfully' });
+        return res.status(200).json({ message: `Course ${approve ? 'Rejected' : 'Approved'} Successfully` });
 
     } catch (error) {
         return res.status(500).json({ message: error.message })
@@ -303,8 +345,9 @@ const deleteCourse = asyncHandler(async (req, res) => {
 export { 
     createCourse,
     getCourseList,
+    getCourseListByInstructor,
     getCourseById,
     updateCourse,
-    publishCourse,
+    approveCourse,
     deleteCourse
 };

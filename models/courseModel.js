@@ -57,15 +57,19 @@ const Courses = sequelize.define(
             type: DataTypes.STRING, 
             allowNull: true
         },
-        published: {
+        approved: {
             type: DataTypes.BOOLEAN, 
-            allowNull: false,
-            defaultValue: true
+            allowNull: true,
+            defaultValue: null
         },
         studentCount: {
             type: DataTypes.INTEGER, 
             allowNull: false,
             defaultValue: 0
+        },
+        created_by: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     }, {
         timestamps: true
