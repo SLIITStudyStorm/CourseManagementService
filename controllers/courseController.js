@@ -124,7 +124,7 @@ const getCourseList = asyncHandler(async (req, res) => {
 });
 
 
-// @desc    Retrieve All Courses
+// @desc    Retrieve All Courses By Instructor
 // route    GET /api/course/instructor/all
 // @access  Public
 const getCourseListByInstructor = asyncHandler(async (req, res) => {
@@ -160,7 +160,7 @@ const getCourseListByInstructor = asyncHandler(async (req, res) => {
 
 
 // @desc    Retrieve Courses By Id
-// route    GET /api/course/pne/:id
+// route    GET /api/course/one/:id
 // @access  Public
 const getCourseById = asyncHandler(async (req, res) => {
     
@@ -264,7 +264,7 @@ const updateCourse = asyncHandler(async (req, res) => {
 
 
 // @desc    Approve Course
-// route    PATCH /api/course/publish/:id
+// route    PATCH /api/course/approve/:id/:approve
 // @access  Private - Auth Lvl 2
 const approveCourse = asyncHandler(async (req, res) => {
 
